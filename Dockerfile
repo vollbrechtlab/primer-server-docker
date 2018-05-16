@@ -4,10 +4,10 @@ ENV REFRESHED_AT 2018-05-16
 
 
 RUN apt-get update && apt-get install -y \
+		build-essential \
 		apache2 \
 		python3 \
 		git \
-		build-essential \
 		python3-pip \
 		systemd
 
