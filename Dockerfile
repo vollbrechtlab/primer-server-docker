@@ -5,11 +5,13 @@ ENV REFRESHED_AT 2018-05-16
 
 RUN apt-get update && apt-get install -y \
 		build-essential \
-		apache2 \
+		nginx \
 		python3 \
 		git \
 		python3-pip \
-		systemd
+		vim \
+		wget
+
 
 RUN git clone https://github.com/vollbrechtlab/primerDAFT.git /opt/primerDAFT
 RUN pip3 install -r /opt/primerDAFT/requirements.txt
@@ -18,6 +20,4 @@ RUN git clone -b docker https://github.com/vollbrechtlab/primer-server.git /opt/
 RUN pip3 install -r /opt/primer-server/rest-api/requirements.txt
 
 RUN	ln -s /opt/primer-server/ui /var/www/html/primer-server
-RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
-
-EXPOSE 80
+#RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
