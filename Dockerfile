@@ -5,7 +5,7 @@ ENV REFRESHED_AT 2018-05-16
 
 RUN apt-get update && apt-get install -y \
 		build-essential \
-		nginx \
+		apache2 \
 		python3 \
 		git \
 		python3-pip \
@@ -15,10 +15,10 @@ RUN git clone https://github.com/vollbrechtlab/primerDAFT.git /opt/primerDAFT
 RUN pip3 install -r /opt/primerDAFT/requirements.txt
 RUN cd /opt/primerDAFT/ && python3 setup.py install
 
-RUN git clone -b docker https://github.com/vollbrechtlab/primer-server.git    /opt/primer-server 
-
+RUN git clone -b docker https://github.com/vollbrechtlab/primer-server.git /opt/primer-server 
 RUN mkdir -p /opt/primer-server/fa
 RUN pip3 install -r /opt/primer-server/rest-api/requirements.txt
+
 RUN	ln -s /opt/primer-server/ui /var/www/html/primer-server
 
 RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
@@ -37,8 +37,8 @@ COPY gunicorn.conf /opt/primer-server/rest-api/
 ENV GUNICORN_CMD_ARGS='--access-logfile="/opt/primer-server/rest-api/logs/gunicorn-access.log" --error-logfile = "/opt/primer-server/rest-api/logs/gunicorn-error.log"'
 
 RUN ln -s usr/local/bin/docker-entrypoint.sh /
-RUN touch /opt/primer-server/rest-api/logs/gunicorn-access.log
-RUN touch /opt/primer-server/rest-api/logs/gunicorn-error.log
+#RUN touch /opt/primer-server/rest-api/logs/gunicorn-access.log
+#RUN touch /opt/primer-server/rest-api/logs/gunicorn-error.log
 
 # ENTRYPOINT ["/etc/init.d/apache2","start"]
 ENTRYPOINT ["docker-entrypoint.sh"]
