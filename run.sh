@@ -8,7 +8,7 @@ else
     source="/media/data/lab_data/takao/primerDAFT/test/fa"
 fi
 
-docker run -it \
+docker run -d \
 		-p 8001:80 \
 		--mount type=bind,source=$source,target=$target \
 		wkpalan/primer-server:v1
