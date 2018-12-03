@@ -35,14 +35,16 @@ RUN ln -s /etc/apache2/mods-available/xml2enc.load /etc/apache2/mods-enabled/xml
 
 COPY 000-default.conf /etc/apache2/sites-enabled/
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-run.sh /usr/local/bin/
 COPY gunicorn.conf /opt/primer-server/rest-api/
 ENV GUNICORN_CMD_ARGS='--access-logfile="/opt/primer-server/rest-api/logs/gunicorn-access.log" --error-logfile = "/opt/primer-server/rest-api/logs/gunicorn-error.log"'
 
-RUN ln -s usr/local/bin/docker-entrypoint.sh /
+#RUN ln -s usr/local/bin/docker-entrypoint.sh /
 #RUN touch /opt/primer-server/rest-api/logs/gunicorn-access.log
 #RUN touch /opt/primer-server/rest-api/logs/gunicorn-error.log
 
 # ENTRYPOINT ["/etc/init.d/apache2","start"]
 ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["docker-entrypoint.sh"]
 
 EXPOSE 80
