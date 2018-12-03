@@ -15,6 +15,8 @@ RUN git clone https://github.com/vollbrechtlab/primerDAFT.git /opt/primerDAFT
 RUN pip3 install -r /opt/primerDAFT/requirements.txt
 RUN cd /opt/primerDAFT/ && python3 setup.py install
 
+RUN pwd
+
 RUN git clone -b docker https://github.com/vollbrechtlab/primer-server.git /opt/primer-server 
 RUN mkdir -p /opt/primer-server/fa
 RUN pip3 install -r /opt/primer-server/rest-api/requirements.txt
