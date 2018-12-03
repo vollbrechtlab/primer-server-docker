@@ -4,12 +4,12 @@ ENV REFRESHED_AT 2018-05-16
 
 
 RUN apt-get update && apt-get install -y \
-		apache2 \
+		build-essential \
+		nginx \
 		python3 \
 		git \
-		build-essential \
 		python3-pip \
-		systemd vim
+		systemd vim wget
 
 RUN git clone https://github.com/vollbrechtlab/primerDAFT.git /opt/primerDAFT
 RUN pip3 install -r /opt/primerDAFT/requirements.txt
@@ -19,9 +19,8 @@ RUN git clone -b docker https://github.com/vollbrechtlab/primer-server.git    /o
 
 RUN mkdir -p /opt/primer-server/fa
 RUN pip3 install -r /opt/primer-server/rest-api/requirements.txt
-
-
 RUN	ln -s /opt/primer-server/ui /var/www/html/primer-server
+
 RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
 RUN ln -s /etc/apache2/mods-available/proxy.conf /etc/apache2/mods-enabled/proxy.conf 
 RUN ln -s /etc/apache2/mods-available/proxy_html.conf /etc/apache2/mods-enabled/proxy_html.conf
